@@ -148,8 +148,13 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
 // FIXME testing code
 void update_battery_state(BatteryChargeState battery_state) {
   static char battery_text[] = "100%";
-  snprintf(battery_text, sizeof(battery_text), "%d%%",
+  if (battery_state.charge_percent < 50) {
+    snprintf(battery_text, sizeof(battery_text), "%d%%",
       battery_state.charge_percent);
+  }
+  else {
+    snprintf(battery_text, sizeof(battery_text), "    ");
+  }
   text_layer_set_text(battery_text_layer, battery_text);
 }
 
@@ -161,6 +166,7 @@ void handle_init(void) {
   Layer *window_layer = window_get_root_layer(window);
 
   // Setup weather bar
+  ResHandle roboto_21 = resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21);
   Layer *weather_holder = layer_create(GRect(0, 0, 144, 50));
   layer_add_child(window_layer, weather_holder);
 
@@ -170,8 +176,9 @@ void handle_init(void) {
   temp_layer = text_layer_create(GRect(40, 3, 144 - 40, 28));
   text_layer_set_text_color(temp_layer, GColorWhite);
   text_layer_set_background_color(temp_layer, GColorClear);
-  text_layer_set_font(temp_layer,
-      fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+  //text_layer_set_font(temp_layer,
+  //    fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+    text_layer_set_font(temp_layer, fonts_load_custom_font(roboto_21));
   text_layer_set_text_alignment(temp_layer, GTextAlignmentRight);
   layer_add_child(weather_holder, text_layer_get_layer(temp_layer));
 
@@ -179,7 +186,7 @@ void handle_init(void) {
   Layer *date_holder = layer_create(GRect(0, 52, 144, 94));
   layer_add_child(window_layer, date_holder);
 
-  ResHandle roboto_21 = resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21);
+  //ResHandle roboto_21 = resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21);
   text_day_layer = text_layer_create(GRect(8, 0, 144-8, 25));
   text_layer_set_text_color(text_day_layer, GColorWhite);
   text_layer_set_background_color(text_day_layer, GColorClear);

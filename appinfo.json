@@ -1,10 +1,10 @@
 {
-  "uuid": "1f0b0701-cc8f-47ec-86e7-7181397f9a8e",
+  "uuid": "4349b263-a0a5-4997-918b-9fbb80f8dc6d",
   "shortName": "Simple Weather",
-  "longName": "Simplicity inspired with weather",
-  "companyName": "John Flanagan",
+  "longName": "Simplicity inspired with weather, based on John Flanagan's work",
+  "companyName": "John Kua",
   "versionCode": 1,
-  "versionLabel": "1.0.0",
+  "versionLabel": "1.1.0",
   "capabilities": [ "configurable" ],
   "watchapp": {
     "watchface": true
